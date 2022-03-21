@@ -6,13 +6,13 @@ SOCKET = "wss://stream.binance.com:9443/ws/crvbusd@depth20@1000ms"
 client = Client(config.API_KEY, config.API_SECRET)
 first_buy_order = False
 
+coin_name = 'CRVBUSD'
 my_buy_price = 2.82
 
 buy_percent = 0.99
 sell_percent = 1.01
 
-my_quantity_1 = 4
-my_quantity_2 = 4
+my_quantity = 4
 
 order_buy_checker_ = {}
 order_sell_checker_ = {}
@@ -21,8 +21,6 @@ order_buy = {}
 order_sell = {}
 order_cancel = {}
 order_cancel_s = {}
-
-coin_name = 'CRVBUSD'
 
 
 def main_check_status():
@@ -37,9 +35,9 @@ def main_check_status():
     if order_buy_checker_["status"] == "FILLED":
         cancel_order_sell()
         print("Buy Order Filled", order_buy_checker_["price"])
-        order_suc_buy = buy_order(quantity=my_quantity_1,
+        order_suc_buy = buy_order(quantity=my_quantity,
                                   fiyat=buy_checker_price * buy_percent)
-        order_su_sell = sell_order(quantity=my_quantity_2,
+        order_su_sell = sell_order(quantity=my_quantity,
                                    fiyat=buy_checker_price * sell_percent)
 
     check_status_sell()
@@ -48,9 +46,9 @@ def main_check_status():
         print("Sell Order Filled", order_sell_checker_["price"])
         sell_checker_price = float(order_sell_checker_["price"])
         cancel_order()
-        order_suc_buy = buy_order(quantity=my_quantity_1,
+        order_suc_buy = buy_order(quantity=my_quantity,
                                   fiyat=sell_checker_price * buy_percent)
-        order_suc_sell_x = sell_order(quantity=my_quantity_2, fiyat=sell_checker_price * sell_percent)
+        order_suc_sell_x = sell_order(quantity=my_quantity, fiyat=sell_checker_price * sell_percent)
 
 
 def sell_order(quantity, fiyat):
@@ -123,8 +121,8 @@ def on_message(ws, message):
         main_check_status()
 
     else:
-        order_succeeded_sell_1 = sell_order(quantity=my_quantity_1, fiyat=my_buy_price * sell_percent)
-        order_succeeded_buy_1 = buy_order(quantity=my_quantity_1, fiyat=my_buy_price * buy_percent)
+        order_succeeded_sell_1 = sell_order(quantity=my_quantity, fiyat=my_buy_price * sell_percent)
+        order_succeeded_buy_1 = buy_order(quantity=my_quantity, fiyat=my_buy_price * buy_percent)
         first_buy_order = True
 
 
