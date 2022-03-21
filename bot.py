@@ -9,8 +9,9 @@ first_buy_order = False
 coin_name = 'CRVBUSD'
 my_buy_price = 2.82
 
-buy_percent = 0.99
-sell_percent = 1.01
+percentage = 10
+buy_percent = (1000-percentage)/1000
+sell_percent = (1000+percentage)/1000
 
 my_quantity = 4
 
