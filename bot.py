@@ -1,13 +1,14 @@
 import websocket
 from binance import Client
 import config
+import  sys
 
-SOCKET = "wss://stream.binance.com:9443/ws/crvbusd@depth20@1000ms"
+SOCKET = "wss://stream.binance.com:9443/ws/minabusd@depth20@1000ms"
 client = Client(config.API_KEY, config.API_SECRET)
 first_buy_order = False
 
-coin_name = 'CRVBUSD'
-my_buy_price = 2.82
+coin_name = 'MINABUSD'
+my_buy_price = 0.61
 
 percentage = 10
 buy_percent = (1000-percentage)/1000
@@ -64,7 +65,7 @@ def sell_order(quantity, fiyat):
 
     except Exception as e:
         print("an exception occured - {}".format(e))
-        return False
+        sys.exit()
     return True
 
 
@@ -80,7 +81,7 @@ def buy_order(quantity, fiyat):
 
     except Exception as e:
         print("an exception occured - {}".format(e))
-        return False
+        sys.exit()
 
     return True
 
